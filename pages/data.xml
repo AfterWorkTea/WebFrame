@@ -1,0 +1,9 @@
+<xml>
+    <scripts>
+        <src>pages/web.js</src>
+    </scripts>
+    <menu>
+        <item name="home">Home</item>
+        <item name="zoo">Zoo</item>
+    </menu>
+</xml>

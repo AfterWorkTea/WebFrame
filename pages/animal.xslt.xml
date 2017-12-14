@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="html" indent="yes" omit-xml-declaration="yes" />
+<xsl:variable name="group">_group_</xsl:variable>
+    <xsl:template match="/animal">
+        <fieldset class="center">
+             <legend><xsl:value-of select="." /></legend>
+             <p><xsl:value-of select="." />s belong to <xsl:value-of select="$group" />.</p>
+             <p>There are <xsl:value-of select="@count" />&#160;<xsl:value-of select="." />s in the zoo.</p>
+             <hr/>
+             <p><a href="#" id="linkZoo" onclick="PostFunction('zoo');return false;">Back to Zoo</a></p>
+        </fieldset>        
+    </xsl:template>
+</xsl:stylesheet>

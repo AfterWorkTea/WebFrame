@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+html { background-color:#f5f7f8; margin:0; padding:0; height:100%; width:100%; }
+body { background-color:#f5f7f8; margin:0; padding:0; height:100%; width:100%; }
+#container { min-height:100%; position:relative; }
+#header { background-color:#ffffff; color:#384046; height:50px; display:inline-block; width:100%;}
+#breadcrumbs { color:#384046; height:40px; display:inline-block; width:100%; background-color: #f2f2f2}
+#title { display:inline-block; width:100%;}
+#body { padding:10px; padding-bottom:60px; /* Height of the footer */ }
+#footer { background-color:#003057; color:#ffffff; position:absolute; bottom:0; width:100%; height:25px; /* Height of the footer */ }
+#section { float:left; padding:10px; background-color:#f8f8f8;}
+h1 { font-family:verdana; font-size:20px;margin:2px;}
+h2 { font-family:verdana; font-size:18px;}
+h3 { font-family:verdana; font-size:16px;}
+table, td, th { border: 1px solid gray; border-collapse:collapse; padding:5px;}
+th { font-family:"Open Sans"; font-size:13px; background-color:#90969C;width:90px; }
+td { font-family:"Open Sans"; font-size:12px; }
+td.right { text-align:right; }
+td.center { text-align:center; }
+tr.odd {background-color:#e8eaeb;} 
+tr.even {background-color:#c7cacd;}
+p { font-family:"Open Sans"; font-size:14px;margin:4px;}
+p.edit { font-family:arial; font-size:14px;margin:4px;}
+p.footer {height:14px; font-family:"Open Sans"; font-size:11px; font-weight:300; text-align:center; color:#ffffff; margin-top:4px; }
+p.header {height:26px; font-family:"Open Sans"; font-size:14px; font-weight:normal; text-align:right; color:#3d3935; display:inline-block; margin-top:20px;}
+span.gray  {font-family:verdana; font-size:12px;color:gray;}
+li { font-family:verdana; font-size:14px;padding:2px;}
+button {border-width:2px;margin-left:5px; margin-right:5px;}
+button:hover {background-color:white;color:#292B2C;}
+button:disabled {background-color:#abb0b4;color:#292B2C;}
+fieldset {background-color:white; width:500px;}
+legend {background-color:white;font-family:"Open Sans"; font-size:14px;font-weight: bold; background-color:#f9f9f9; padding-left:5px; padding-right:5px;}
+fieldset { padding:10px; background-color:#f8f8f8; padding-top:5px; border:1px solid gray; border-radius:9px; box-shadow:3px 3px 9px lightgray;}
+fieldset.center { padding:10px; background-color:white; padding-top:5px; border:1px solid gray; border-radius:9px; box-shadow: 3px 3px 9px lightgray; width:500px; margin:auto; }
+label {  font-family:"Open Sans"; text-align:left; color: gray;  }
+li { font-family:verdana; font-size:12px;}
+select {font-family:"Open Sans"; font-size:14px; text-align: left;margin-left:2px;margin-right:2px;}
+div.inline {display:inline-block; }
+div.inline-fieldset {display:inline-block;width:900px;text-align:center;}
+div.inline-rightfieldset {display:inline-block;width:300px;text-align:right;vertical-align:top;}
+div.inline-show {display:inline-block; width:1270px; text-align:left;}
+div.inline-right {display:inline-block; width:1270px; text-align:right;}
+div.inlinmrg {display:inline-block; margin-left:20px;}
+
+a.menu:{font-family:"Open Sans";font-size:14px;font-weight:normal;}
+a.menu:link {  color:#3d3935; text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
+a.menu:hover { color:#007fa3; background-color:lightgrey;text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
+
+a.footer:link { font-family:"Open Sans"; font-size:12px;  font-weight:300;  line-height:1.42;  color:#84bd00; text-decoration: none;}
+a.footer:hover { font-family:"Open Sans"; font-size:12px;  font-weight:300;  line-height:1.42;  color:#007fa3; text-decoration: none;background-color:lightgrey;}
+a.footer:visited { font-family:"Open Sans"; font-size:12px;  font-weight:300;  line-height:1.42;  color:#84bd00; }
+
