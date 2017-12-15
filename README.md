@@ -22,7 +22,9 @@ IT is not a Content Management System as it requires knowledge of XML/XSLT, HTML
 - Light - minimal programming to achieve basic functionality 
 - XML-centric
     - DB stored functions return XML 
-    - the XML enters XSLT processor to generate HTML 
+    - the XML enters XSLT processor to generate HTML
+
+The example requires PHP with XLST processing and PDO support to run.
 
 ## Assumptions 
 
@@ -41,19 +43,7 @@ IT is not a Content Management System as it requires knowledge of XML/XSLT, HTML
 - pages - configuration files and XSLT format files
 - pic - included pictures
 
-### /Include - PHP classes 
-
-- Website.php - the framework engine
-- WebDB.php - database access class
-- *Page.php - page's content classes
-
-### /Pages - Configuration files 
-
-- data.xml - menu definition and web.js script name for the framework
-- website.xml - the frame and page definitions
-- web.js - the requires JS to support POST links
-- format.xslt.xml - frame transformation (header, menu, footer, etc)
-- other *.xslt.xml - transformations for page content
+Open the folders for more information.
 
 Thank you!
 
