@@ -4,45 +4,24 @@ The folder contains PHP classes for rendering pages:
 
 - Website.php - the framework engine
 - WebDB.php - optional example of a database access class
-- *Page.php - classes rendering content of pages
+- BasePage.php - the superclass for rendering content of pages
+- Other *Page.php - subclasses of BasePage that render pages
 
 ## Website.php
 
-It is the main and the only engine class. It processes requests according to provided configuration files, first renders common elements (like header, menu, footer, etc.) and later selects and calls specific Page class for to request XMLT and XML string that serve internal processor to generate content's HTML.
+The engine class for the framework. It processes requests according to provided configuration files, first renders common elements (like header, menu, footer, etc.) and later selects and calls specific Page's method getContent() to generate content's HTML.
 
+## BasePage.php
 
-## *Page.php class
+The superclass for rendering pages. It provides the basic functions to handle attributes from XML definition, the default page name and process XML using given XLST to generate HTML content.
 
-The classes are responsible for rendering content the corresponding page. They are being called by Website and must must provide:
+Other content rendering classes should extend it and implement own getContent() method.
 
-- public, argument-less constructor
-- public function getXSLT($xslt)
-- public function getXML()
+## Other *Page.php
 
-### function getXSLT($xslt)
+The classes are responsible for rendering content the corresponding page. They are being called by Website and must extend BasePage and provide own:
 
-Takes one argument, the string of XLST transformation.
-
-It should return a valid XSLT transformation string that generate a content.
-
-When needed It allows the class to modify the values of xsl:variable, e.g. group or sorting selections that might impact rendering of specific HTML elements.
-
-E.g.:
-
-- `$xslt = str_replace("_gid_", "".$this->gid, $xslt);`
-
-- `$xslt = str_replace("_sort_", $this->sort, $xslt);`
-
-
-Otherwise it can just return the $xslt as it is.
-
-### function getXML()
-
-The function takes zero arguments and should return an XML string, that processed by the above XLST will generate HTML.
-
-The source of the XML can be both static (inline or external) as well as dynamic, e.g. from a database query.
-
-Please note ZooPages class that illustrates generations of table with automatic filtering, sorting and paging.
+- public function getContent() that will return HTML
 
 ## WebDB.php
 
@@ -56,7 +35,6 @@ Where:
 
 - `['S']` represents status: 'OK' for success or any other not null string for an error
 - `['R']` represents XML value for a success or message for an error
-
 
 Please note the function `getZoo($sort, $gid, $from, $pagesize)`.
 

@@ -2,11 +2,10 @@
 
 include "include/BasePage.php";
 
-
-class CreditsPage extends BasePage {
+class HomePage extends BasePage {
 
 private $xmlStr = <<<XML
-<data legend='Credits'>Desined and developed by Robert Berlinski</data>
+<data legend='Welcome'>Welcome to demo home!</data>
 XML;
 
     public function getContent() {

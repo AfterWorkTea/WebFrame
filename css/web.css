@@ -12,12 +12,12 @@ h1 { font-family:verdana; font-size:20px;margin:2px;}
 h2 { font-family:verdana; font-size:18px;}
 h3 { font-family:verdana; font-size:16px;}
 table, td, th { border: 1px solid gray; border-collapse:collapse; padding:5px;}
-th { font-family:"Open Sans"; font-size:13px; background-color:#90969C;width:90px; }
+th { font-family:"Open Sans"; font-size:13px; background-color:#BDBDBD;width:90px; }
 td { font-family:"Open Sans"; font-size:12px; }
 td.right { text-align:right; }
 td.center { text-align:center; }
-tr.odd {background-color:#e8eaeb;} 
-tr.even {background-color:#c7cacd;}
+tr.odd {background-color:#E6E6E6;}
+tr.even {background-color:#F2F2F2;}
 p { font-family:"Open Sans"; font-size:14px;margin:4px;}
 p.edit { font-family:arial; font-size:14px;margin:4px;}
 p.footer {height:14px; font-family:"Open Sans"; font-size:11px; font-weight:300; text-align:center; color:#ffffff; margin-top:4px; }
@@ -44,8 +44,17 @@ div.inlinmrg {display:inline-block; margin-left:20px;}
 a.menu:{font-family:"Open Sans";font-size:14px;font-weight:normal;}
 a.menu:link {  color:#3d3935; text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
 a.menu:hover { color:#007fa3; background-color:lightgrey;text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
+a.menu:visited { color:#3d3935; text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
 
-a.footer:link { font-family:"Open Sans"; font-size:12px;  font-weight:300;  line-height:1.42;  color:#84bd00; text-decoration: none;}
-a.footer:hover { font-family:"Open Sans"; font-size:12px;  font-weight:300;  line-height:1.42;  color:#007fa3; text-decoration: none;background-color:lightgrey;}
-a.footer:visited { font-family:"Open Sans"; font-size:12px;  font-weight:300;  line-height:1.42;  color:#84bd00; }
+a.footer:link { font-family:"Open Sans"; font-size:11px;  font-weight:300;  line-height:1.42;  color:#00BFFF; text-decoration: none;}
+a.footer:hover { color:#0A2A1B; text-decoration: none; text-decoration:underline;}
+a.footer:visited { color:#00BFFF; }
+
+a.tableHeader { font-family:"Open Sans"; font-size:14px;  font-weight: bold;  color:#A4A4A4; text-decoration:none; padding:5px;}
+a.tableHeader:hover { color:#3d3935; background-color:lightgrey; }
+a.tableHeader:visited { color:#3d3935; }
+
+a.tableHeaderDisabled { font-family:"Open Sans"; font-size:14px;  font-weight: bold;  color:#2E2E2E; text-decoration:none;
+padding:5px; pointer-events:none;  cursor: default;}
+
 

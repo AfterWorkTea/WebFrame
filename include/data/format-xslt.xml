@@ -2,38 +2,48 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" indent="yes" omit-xml-declaration="yes" />
 <xsl:variable name="content">_CONTENT_</xsl:variable>
-    <xsl:template match="/">
+    <xsl:template match="/website">
         <html>
             <link rel="stylesheet" type="text/css" href="css/web.css" />
             <head>
                 <title>WebFrame</title>
                 <link rel="shortcut icon" href="favicon.ico" />
-                <xsl:apply-templates select="/xml/scripts"/>
+                <script>
+					function LinkTo(name) {
+						var linkToForm = document.getElementById("linkToForm");
+						linkToForm.page.value = name;
+						linkToForm.submit();
+					}
+                </script>
             </head>
             <body>
+				<body onkeydown="return (event.keyCode == 8)" />
+				<body onkeydown="return (event.keyCode == 116)" />
+				<body onkeydown="return (event.keyCode == 123)" />
+				<body onkeydown="return (event.keyCode == 154)" />
                 <div id="container">
                 <div id="header">
                     <div style="display:inline-block; fload:left;">
-                        <p style="display:inline-block; margin-left:10px;">
-                            <a style="position:relative; top:10px;" href="#" id="linkHome" onclick="PostFunction('home');return false;">
+                        <p style="display:inline-block; margin-left:10px; margin-right:0px;">
+                            <a style="position:relative; top:8px;" href="#" id="linkHome" onclick="PostFunction('home');return false;">
                                 <img src="pic/webframe.png" alt="WebFrame" height="25" width="auto" />
                             </a>
                         </p>
+                        <p style="display:inline-block; color:gray;">[<xsl:value-of select="@page"/>]</p>
                     </div>
-                    <xsl:apply-templates select="/xml/menu"/>
+                    <xsl:apply-templates select="/website/menu"/>
                 </div>
                 <div>
                     <xsl:value-of select="$content"/>
                 </div>
                 <div style="height:0px;">
-                    <form id="postForm" action="#" method="POST">
+                    <form id="linkToForm" action="#" method="POST">
                         <input type="hidden" id="page" name="page" value="X"/>
-                        <input type="hidden" id="prms" name="prms" value="Y"/>
                     </form>
                 </div>
                 <div id="footer">
-                    <p class="footer" title="December 2017">WebFrame ver 1.0&#160;Copyright &#169; R. Berlinski 2017. All rights reserved.&#160;We use cookies.&#160;
-                        |&#160;<a href="#" class="footer" id="linkCredits" onclick="PostFunction('credits');return false;">Credits</a>&#160;|
+                    <p class="footer" title="December 2017">WebFrame ver 2.0 Copyright &#169; R. Berlinski 2017-2018. All rights reserved.&#160;We use cookies.&#160;
+                        |&#160;<a href="#" class="footer" id="linkCredits" onclick="LinkTo('credits');return false;">Credits</a>&#160;|
                     </p>
                 </div>
                 </div>
@@ -41,27 +51,19 @@
         </html>
     </xsl:template>
     <!-- Menu -->
-    <xsl:template match="/xml/menu">
+    <xsl:template match="/website/menu">
         <div style="display:inline-block; float:right; margin-right:3em;">
             <p class="header">
-                <xsl:apply-templates select="/xml/menu/item" />
+                <xsl:apply-templates select="/website/menu/item" />
             </p>
         </div>
     </xsl:template>
     <!-- Menu item(s) -->
-    <xsl:template match="/xml/menu/item">
+    <xsl:template match="/website/menu/item">
         <a class="menu" href="#">
             <xsl:attribute name="id">link<xsl:value-of select="@name" /></xsl:attribute>
-            <xsl:attribute name="onclick">PostFunction('<xsl:value-of select="@name" />');return false;</xsl:attribute>
+            <xsl:attribute name="onclick">LinkTo('<xsl:value-of select="@name" />');return false;</xsl:attribute>
             <xsl:value-of select="." />
         </a>
-    </xsl:template>
-    <!-- Scripts -->
-    <xsl:template match="/xml/scripts">
-        <xsl:apply-templates select="/xml/scripts/src" />
-    </xsl:template>
-    <!-- Script src -->
-    <xsl:template match="/xml/scripts/src">
-        <script src="{.}"></script>
     </xsl:template>
 </xsl:stylesheet>

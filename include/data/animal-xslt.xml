@@ -8,7 +8,7 @@
              <p><xsl:value-of select="." />s belong to <xsl:value-of select="$group" />.</p>
              <p>There are <xsl:value-of select="@count" />&#160;<xsl:value-of select="." />s in the zoo.</p>
              <hr/>
-             <p><a href="#" id="linkZoo" onclick="PostFunction('zoo');return false;">Back to Zoo</a></p>
-        </fieldset>        
+             <p><a href="#" id="linkZoo" onclick="LinkTo('zoo');return false;">Back to Zoo</a></p>
+        </fieldset>
     </xsl:template>
 </xsl:stylesheet>

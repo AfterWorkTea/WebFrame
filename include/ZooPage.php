@@ -1,8 +1,9 @@
 <?php
 
-include_once  'WebDB.php';
+include "include/WebDB.php";
+include "include/BasePage.php";
 
-class ZooPage {
+class ZooPage extends BasePage {
 
 private $dataXML = <<<XML
 <data>
@@ -23,8 +24,10 @@ XML;
 private $sort = null;
 private $gid = null;
 private $from = 0;
+private $pagesize = 5;
 
-    public function ZooPage() {
+    public function __construct($attributes, $folder) {
+		parent::__construct($attributes, $folder);
         $this->sort = isset($_POST['sort']) ? strtoupper($_POST['sort']) : "N";
         $this->gid = isset($_POST['gid']) ? (int)$_POST['gid'] : 0;
         if (isset($_POST['button_back'])) {
@@ -35,41 +38,41 @@ private $from = 0;
         }
     }
 
-    public function getXSLT($xslt) {
-        $xslt = str_replace("_gid_", "".$this->gid, $xslt);
-        $xslt = str_replace("_sort_", $this->sort, $xslt);
-        return $xslt;
-    }
+    public function getContent() {
+		$db = new WebDB();
+		$respGroup = $db->getGroup();
+		$respTable = $db->getZoo($this->sort, $this->gid, $this->from, $this->pagesize);
+		$db = null;
+		if(strcasecmp($respGroup["S"], "OK") != 0) {
+			return "Get group issue: ". $respGroup["R"];
+	    }
+	    if(strcasecmp($respTable["S"], "OK") != 0) {
+			return "Get table issue: ". $respTable["R"];
+	    }
+		$xml = $this->getXML($respGroup["R"], $respTable["R"], $this->getCount($respTable["R"]));
+		return parent::processXML(["_gid_" => "".$this->gid, "_sort_" => $this->sort], $xml);
+	}
 
-    public function getXML() {
-        $from = $this->from;
-        $pagesize = 5;
-        $db = new WebDB();
-        $respGr = $db->getGroup();
-        if(strcasecmp($respGr["S"], "OK") != 0) {
-            $db = null;
-            return $respGr;
-        }
-        $respZ = $db->getZoo($this->sort, $this->gid, $from, $pagesize);
-        $db = null;
-        if(strcasecmp($respZ["S"], "OK") != 0) {
-            return $respZ;
-        }
-        $xmlElement = new SimpleXMLElement($respZ['R']);
+	private function getCount($tableXML) {
+		$xmlElement = new SimpleXMLElement($tableXML);
         $count = $xmlElement->attributes()['count'];
-        $prev = $from - $pagesize;
-        $next = $from + $pagesize;
-        $to = ($next > $count) ? $count : ($next);
-        $more = $count - $to;        
-        $dataXML = str_replace("_GROUPS_", $respGr['R'], $this->dataXML);
-        $dataXML = str_replace("_TABLE_", $respZ['R'], $dataXML);        
+        return $count;
+	}
+
+    private function getXML($groupXML, $tableXML, $count) {
+        $prev = $this->from - $this->pagesize;
+        $next = $this->from + $this->pagesize;
+        $to = ($next > $count) ? $count : $next;
+        $more = $count - $to;
+        $dataXML = str_replace("_GROUPS_", $groupXML, $this->dataXML);
+        $dataXML = str_replace("_TABLE_", $tableXML, $dataXML);
         $dataXML = str_replace("_COUNT_", $count, $dataXML);
-        $dataXML = str_replace("_FROM_", $from, $dataXML);
+        $dataXML = str_replace("_FROM_", $this->from, $dataXML);
         $dataXML = str_replace("_MORE_", $more, $dataXML);
         $dataXML = str_replace("_TO_", $to, $dataXML);
         $dataXML = str_replace("_PREV_", $prev, $dataXML);
         $dataXML = str_replace("_NEXT_", $next, $dataXML);
-        return ['R' => $dataXML, 'S' => 'OK'];
+        return $dataXML;
     }
 
 }

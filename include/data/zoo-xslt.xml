@@ -6,6 +6,21 @@
             function onGroupChange() {
                 document.getElementById("table").submit();
             }
+
+            function LinkToAnimal(name, id) {
+				var inHTML;
+				var linkToForm = document.getElementById("linkToForm");
+				inHTML = linkToForm.innerHTML;
+				linkToForm.innerHTML = inHTML + '<input type="hidden" id="parm" name="parm" value="' + id + '"/>';
+				linkToForm.page.value = name;
+				linkToForm.submit();
+			}
+
+			function onSortClick(sort) {
+				var tableForm = document.getElementById("table");
+				tableForm.sort.value = sort;
+				tableForm.submit();
+            }
         </script>
         <fieldset class="center">
             <legend>Zoo</legend>
@@ -62,16 +77,16 @@
         <xsl:choose>
             <xsl:when test="sort = '_sort_'">
                 <th>
-                    <button type="submit" name="sort" value="{sort}" disabled="disabled">
-                        <xsl:value-of select="name"/>&#160;▼
-                    </button>
+					<a class="tableHeaderDisabled" href="#" disabled="disabled">
+						<xsl:value-of select="name"/>&#160;&#9660;
+					</a>
                 </th>
             </xsl:when>
             <xsl:otherwise>
                 <th>
-                    <button type="submit" name="sort" value="{sort}">
-                        <xsl:value-of select="name"/>&#160;►
-                    </button>
+					<a class="tableHeader" href="#" onclick="onSortClick('{sort}')" >
+						<xsl:value-of select="name"/>&#160;&#9654;
+					</a>
                 </th>
             </xsl:otherwise>
         </xsl:choose>
@@ -94,17 +109,17 @@
             <td class="center">
                 <xsl:choose>
                     <xsl:when test="@group='BIRD'">
-                        <a href="#" target="_self" id="linkBird" onclick="PostFunction('bird', '{@id}');return false;">
+                        <a href="#" target="_self" id="linkBird" onclick="LinkToAnimal('bird', '{@id}');return false;">
                             <img src="pic/b.png" height="20" width="20" title="Bird" />
                         </a>
                     </xsl:when>
                     <xsl:when test="@group='MAMMAL'">
-                        <a href="#" target="_self" id="linkMammal" onclick="PostFunction('mammal', '{@id}');return false;">
+                        <a href="#" target="_self" id="linkMammal" onclick="LinkToAnimal('mammal', '{@id}');return false;">
                             <img src="pic/m.png" height="20" width="20" title="Mammal" />
                         </a>
                     </xsl:when>
                     <xsl:when test="@group='REPTILE'">
-                        <a href="#" target="_self" id="linkReptile" onclick="PostFunction('reptile', '{@id}');return false;">
+                        <a href="#" target="_self" id="linkReptile" onclick="LinkToAnimal('reptile', '{@id}');return false;">
                             <img src="pic/r.png" height="20" width="20" title="Reptile" />
                         </a>
                     </xsl:when>

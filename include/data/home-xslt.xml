@@ -5,6 +5,7 @@
         <fieldset class="center">
              <legend><xsl:value-of select="@legend" /></legend>
              <p><xsl:value-of select="." /></p>
+             <p>See <a href="#" onclick="LinkTo('zoo');return false;">animals</a> in our zoo</p>
         </fieldset>
     </xsl:template>
 </xsl:stylesheet>

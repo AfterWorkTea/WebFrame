@@ -1,0 +1,14 @@
+<website format="format-xslt.xml" page="_PAGE_">
+    <menu>
+        <item name="home">Home</item>
+        <item name="zoo">Zoo</item>
+    </menu>
+    <pages>
+		<page name="home" format="home-xslt.xml" class="HomePage" />
+		<page name="zoo" format="zoo-xslt.xml" class="ZooPage" />
+		<page name="bird" format="animal-xslt.xml" class="AnimalPage" group="bird" />
+		<page name="mammal" format="animal-xslt.xml" class="AnimalPage" group="mammal" />
+		<page name="reptile" format="animal-xslt.xml" class="AnimalPage" group="reptile" />
+		<page name="credits" format="home-xslt.xml" class="CreditsPage" />
+    </pages>
+</website>
