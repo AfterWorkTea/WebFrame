@@ -1,6 +1,6 @@
 # WebFrame
 
-** *Light XML-centric PHP, MySQL framework for developers - version 2.0* **
+** *Light XML-centric PHP, MySQL framework for developers - version 2.1* **
 
 See demo at YouTube [TechBob-WebFrame](https://youtu.be/rXss-Oyox6I) (shows version 1.0)
 
@@ -46,6 +46,10 @@ The example requires PHP with XLST processing and MySQL/PDO support to run.
 Open the folders for more information.
 
 ## Change list
+
+###Jan 22, 2018 - version 2.1
+
+- added optional session handling with login screen
 
 ###Jan 07, 2018 - version 2.0
 

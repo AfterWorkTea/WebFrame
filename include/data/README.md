@@ -11,7 +11,8 @@ The folder contains configuration and transformation XSLT files:
 Defines:
 
 - the name of XLST transformation file for common elements (header, menu, footer)
-- place holder for current page name
+- optional session switch (session set to "YES")
+- optional session configuration (time out in seconds, and page name to log in)
 - the menu content
     - control name
     - page name to be displayed in menu

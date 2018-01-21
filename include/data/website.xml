@@ -1,4 +1,5 @@
-<website format="format-xslt.xml" page="_PAGE_">
+<website format="format-xslt.xml" session="YES">
+	<session timeout="60">login</session>
     <menu>
         <item name="home">Home</item>
         <item name="zoo">Zoo</item>
@@ -10,5 +11,6 @@
 		<page name="mammal" format="animal-xslt.xml" class="AnimalPage" group="mammal" />
 		<page name="reptile" format="animal-xslt.xml" class="AnimalPage" group="reptile" />
 		<page name="credits" format="home-xslt.xml" class="CreditsPage" />
+		<page name="login" format="login-xslt.xml" class="LoginPage" />
     </pages>
 </website>

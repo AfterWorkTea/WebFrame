@@ -2,6 +2,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" indent="yes" omit-xml-declaration="yes" />
 <xsl:variable name="content">_CONTENT_</xsl:variable>
+<xsl:variable name="user">_USER_</xsl:variable>
+<xsl:variable name="page">_PAGE_</xsl:variable>
     <xsl:template match="/website">
         <html>
             <link rel="stylesheet" type="text/css" href="css/web.css" />
@@ -17,10 +19,6 @@
                 </script>
             </head>
             <body>
-				<body onkeydown="return (event.keyCode == 8)" />
-				<body onkeydown="return (event.keyCode == 116)" />
-				<body onkeydown="return (event.keyCode == 123)" />
-				<body onkeydown="return (event.keyCode == 154)" />
                 <div id="container">
                 <div id="header">
                     <div style="display:inline-block; fload:left;">
@@ -29,7 +27,7 @@
                                 <img src="pic/webframe.png" alt="WebFrame" height="25" width="auto" />
                             </a>
                         </p>
-                        <p style="display:inline-block; color:gray;">[<xsl:value-of select="@page"/>]</p>
+                        <p style="display:inline-block;color:gray;font-size:14">[<xsl:value-of select="$page"/>]</p>
                     </div>
                     <xsl:apply-templates select="/website/menu"/>
                 </div>
@@ -42,7 +40,7 @@
                     </form>
                 </div>
                 <div id="footer">
-                    <p class="footer" title="December 2017">WebFrame ver 2.0 Copyright &#169; R. Berlinski 2017-2018. All rights reserved.&#160;We use cookies.&#160;
+                    <p class="footer" title="December 2017">WebFrame ver 2.1 Copyright &#169; R. Berlinski 2017-2018. All rights reserved.&#160;We use cookies.&#160;
                         |&#160;<a href="#" class="footer" id="linkCredits" onclick="LinkTo('credits');return false;">Credits</a>&#160;|
                     </p>
                 </div>
@@ -53,6 +51,14 @@
     <!-- Menu -->
     <xsl:template match="/website/menu">
         <div style="display:inline-block; float:right; margin-right:3em;">
+			<div style="display:inline-block;">
+				<form action="#" method="POST">
+					<button class="logoff" type="submit" name="LOGOFF" title="Log off">
+						<img src="pic/user.png" alt="User" height="20" width="auto" />
+						<p style="color:gray;font-size:12px;margin-top:0px;" id="UserName"><xsl:value-of select="$user"/></p>
+					</button>
+				</form>
+			</div>
             <p class="header">
                 <xsl:apply-templates select="/website/menu/item" />
             </p>

@@ -5,6 +5,7 @@ The folder contains PHP classes for rendering pages:
 - Website.php - the framework engine
 - WebDB.php - optional example of a database access class
 - BasePage.php - the superclass for rendering content of pages
+- LoginPage.php - optional for session log in
 - Other *Page.php - subclasses of BasePage that render pages
 
 ## Website.php
@@ -16,6 +17,10 @@ The engine class for the framework. It processes requests according to provided 
 The superclass for rendering pages. It provides the basic functions to handle attributes from XML definition, the default page name and process XML using given XLST to generate HTML content.
 
 Other content rendering classes should extend it and implement own getContent() method.
+
+## LoginPage.php
+
+Simple mock for log in (user and password must be longer than 2 characters)
 
 ## Other *Page.php
 

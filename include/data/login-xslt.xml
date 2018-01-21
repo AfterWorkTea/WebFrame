@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="html" indent="yes" omit-xml-declaration="yes" />
+<xsl:variable name="status">_STATUS_</xsl:variable>
+<xsl:variable name="data">_DATA_</xsl:variable>
+    <xsl:template match="/data">
+        <fieldset class="center">
+            <legend><xsl:value-of select="@legend" /></legend>
+            <xsl:choose>
+                <xsl:when test="@status='LOGIN'">
+                    <form id="loginForm" action="#" method="POST">
+                        <p>Please enter:</p>
+                        <p>User:<input type="text" name="user" value=""/></p>
+                        <p>Password:<input type="text" name="password" value=""/></p>
+                        <input type="hidden" name="page" value="login"/>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </xsl:when>
+                <xsl:when test="@status='ERROR'">
+                    <form id="loginForm" action="#" method="POST">
+                        <p>There was an error, please enter again:</p>
+                        <p>User:<input type="text" name="user" value=""/></p>
+                        <p>Password:<input type="text" name="password" value=""/></p>
+                        <input type="hidden" name="page" value="login"/>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </xsl:when>
+                <xsl:when test="@status='SUCCESS'">
+                    <p>Welcome <xsl:value-of select="." /></p>
+                </xsl:when>
+                <xsl:otherwise>
+                    <p>Please try again</p>
+                </xsl:otherwise>
+            </xsl:choose>
+        </fieldset>
+    </xsl:template>
+</xsl:stylesheet>

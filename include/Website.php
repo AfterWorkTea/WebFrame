@@ -1,6 +1,61 @@
 <?php
 
+class Session {
+
+	private $enabled = false;
+	private $elapsed = 0;
+	private $timeout = 0;
+	private $page = '';
+
+	public function Session($enabled = false) {
+		$this->enabled = $enabled;
+	}
+
+	public function setSession($webXML) {
+		$session = $webXML->attributes()['session'];
+		$this->enabled = (strcasecmp($session, 'YES') == 0);
+		if($this->enabled) {
+			session_start();
+			if(isset($_POST['LOGOFF'])) {
+				session_unset();
+			}
+			$this->elapsed = (isset($_SESSION['LAST_ACTIVITY'])) ? (time() - $_SESSION['LAST_ACTIVITY']) : 0;
+			$_SESSION['LAST_ACTIVITY'] = time();
+			$this->timeout = $webXML->session->attributes()['timeout'];
+			$this->page = ''. $webXML->session;
+		}
+	}
+
+	public function getPage($page) {
+		if(!$this->enabled) {
+			return $page;
+		}
+		if($this->elapsed > $this->timeout) {
+			 session_unset();
+			return $this->page;
+		}
+		if(!isset($_SESSION['user'])) {
+			 session_unset();
+			return $this->page;
+		}
+		return $page;
+	}
+
+	public function getUser() {
+		if($this->enabled) {
+			return isset($_SESSION['user']) ? $_SESSION['user'] : 'Guest';
+		} else {
+			return 'Guest';
+		}
+	}
+
+	private function validSession() {
+        return (isset($_SESSION['user']) and ($this->elapsed < 1*60)); //1 x 60 [sec]
+    }
+}
+
 class Website {
+
 
 private $error = "_ERROR_";
 private $xmlError = <<<XML
@@ -11,20 +66,25 @@ XML;
     private $webFile = null;
     private $page = null;
     private $lastMsg = null;
+    private $session = null;
 
     public function Website($webFile) {
-        $this->webFile = $webFile;
-        $this->page = $this->getPageName();
+		$this->webFile = $webFile;
+		$this->page = $this->getPageName();
+		$this->session = new Session();
     }
 
     public function run() {
-       $webXML = $this->loadXML($this->folder. $this->webFile, 'website', ["_PAGE_" => $this->page]);
+       $webXML = $this->loadXML($this->folder. $this->webFile, 'website', []);
        if($webXML === false) {
 		   echo $this->getErrorHTML($this->lastMsg);
 		   return;
 	   }
        $format = $webXML->attributes()['format'];
-       $webFormat = $this->loadXML($this->folder. $format, 'format', []);
+       $this->session->setSession($webXML);
+       $this->page = $this->session->getPage($this->page);
+       $user = $this->session->getUser();
+       $webFormat = $this->loadXML($this->folder. $format, 'format', ["_PAGE_" => $this->page, "_USER_" => $user]);
        if($webFormat === false) {
 		   echo $this->getErrorHTML($this->lastMsg);
 		   return;
@@ -128,6 +188,7 @@ XML;
         $this->webFile = null;
         $this->page = null;
         $this->lastMsg  = null;
+        $this->session = null;
     }
 
 }

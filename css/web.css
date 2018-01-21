@@ -46,6 +46,9 @@ a.menu:link {  color:#3d3935; text-decoration:none;padding:3px;padding-left:6px;
 a.menu:hover { color:#007fa3; background-color:lightgrey;text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
 a.menu:visited { color:#3d3935; text-decoration:none;padding:3px;padding-left:6px;padding-right:6px;}
 
+button.logoff {font-family:"Open Sans";margin:2px; border:0px;}
+button.logoff:hover {background-color:lightgrey;}
+
 a.footer:link { font-family:"Open Sans"; font-size:11px;  font-weight:300;  line-height:1.42;  color:#00BFFF; text-decoration: none;}
 a.footer:hover { color:#0A2A1B; text-decoration: none; text-decoration:underline;}
 a.footer:visited { color:#00BFFF; }
