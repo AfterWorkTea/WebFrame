@@ -1,16 +1,22 @@
-<website format="format-xslt.xml" session="YES">
-	<session timeout="60">login</session>
+<website format="format-xslt.xml">
+    <session strict="NO" timeout="60" authentication="login" guest="Guest"/>
+    <!-- strict=YES|NO -requires authentication for every page-->
+    <!-- timeout=number - session time out [sec]-->
+    <!-- authentication=name - authentication page -->
+    <!-- guest=name - the name of guest user -->
     <menu>
         <item name="home">Home</item>
         <item name="zoo">Zoo</item>
+        <item name="admin">Admin</item>
     </menu>
     <pages>
-		<page name="home" format="home-xslt.xml" class="HomePage" />
-		<page name="zoo" format="zoo-xslt.xml" class="ZooPage" />
-		<page name="bird" format="animal-xslt.xml" class="AnimalPage" group="bird" />
-		<page name="mammal" format="animal-xslt.xml" class="AnimalPage" group="mammal" />
-		<page name="reptile" format="animal-xslt.xml" class="AnimalPage" group="reptile" />
-		<page name="credits" format="home-xslt.xml" class="CreditsPage" />
-		<page name="login" format="login-xslt.xml" class="LoginPage" />
+        <page name="home" rest="*" format="home-xslt.xml" class="HomePage" />
+        <page name="zoo" rest="U" format="zoo-xslt.xml" class="ZooPage" />
+        <page name="bird" rest="U" format="animal-xslt.xml" class="AnimalPage" group="bird" />
+        <page name="mammal" rest="U" format="animal-xslt.xml" class="AnimalPage" group="mammal" />
+        <page name="reptile" rest="U" format="animal-xslt.xml" class="AnimalPage" group="reptile" />
+        <page name="credits" rest="*" format="home-xslt.xml" class="CreditsPage" />
+        <page name="admin" rest="A" format="home-xslt.xml" class="AdminPage" />
+        <page name="login" rest="*" format="login-xslt.xml" class="LoginPage" />
     </pages>
 </website>

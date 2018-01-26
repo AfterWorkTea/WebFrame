@@ -1,6 +1,6 @@
 # WebFrame
 
-** *Light XML-centric PHP, MySQL framework for developers - version 2.1* **
+** *Light XML-centric PHP, MySQL framework for developers - version 3.0* **
 
 See demo at YouTube [TechBob-WebFrame](https://youtu.be/rXss-Oyox6I) (shows version 1.0)
 
@@ -20,6 +20,7 @@ IT is not a Content Management System as it requires knowledge of XML/XSLT, HTML
 
 - Framework - a strategy and basic functions that help to build a web application.
 - Light - minimal programming to achieve basic functionality
+- Session/authentication/authorisation with automatic timeout
 - XML-centric
     - DB stored functions return XML
     - XSLT processor generates HTML from data given in an XML
@@ -46,6 +47,10 @@ The example requires PHP with XLST processing and MySQL/PDO support to run.
 Open the folders for more information.
 
 ## Change list
+
+###Jan 26, 2018 - version 3.0
+
+- advanced session support
 
 ###Jan 22, 2018 - version 2.1
 

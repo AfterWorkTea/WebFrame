@@ -4,30 +4,63 @@
 <xsl:variable name="content">_CONTENT_</xsl:variable>
 <xsl:variable name="user">_USER_</xsl:variable>
 <xsl:variable name="page">_PAGE_</xsl:variable>
+<xsl:variable name="islogin">_ISLOGIN_</xsl:variable>
+<xsl:variable name="timeLeft">_TIMELEFT_</xsl:variable>
     <xsl:template match="/website">
         <html>
             <link rel="stylesheet" type="text/css" href="css/web.css" />
             <head>
                 <title>WebFrame</title>
                 <link rel="shortcut icon" href="favicon.ico" />
-                <script>
-					function LinkTo(name) {
-						var linkToForm = document.getElementById("linkToForm");
-						linkToForm.page.value = name;
-						linkToForm.submit();
-					}
+                <script type="text/javascript">
+                    <![CDATA[
+
+                    function startTimer() {
+                        var isLogin = document.getElementById("isLogin").value;
+                        var countDown = document.getElementById("downTimerSec").value;
+                        if(isLogin.localeCompare("Y") == 0) {
+                            document.getElementById("timeLeft").innerHTML = " : " + countDown;
+                            var downTimer = setInterval(function() {
+                                countDown = countDown - 1;
+                                var text = (countDown <= 0) ? ": EXPIRED" : " : " + countDown;
+                                if(countDown < 0) {
+                                    clearInterval(downTimer);
+                                    LinkTo("login");
+                                }
+                                document.getElementById("timeLeft").innerHTML = text;
+                            }, 1000);
+                        }
+                    }
+
+                    function LinkTo(name) {
+                        var linkToForm = document.getElementById("linkToForm");
+                        linkToForm.page.value = name;
+                        linkToForm.submit();
+                    }
+
+                    function onLogout(user) {
+						var ret = confirm("Logout " + user + "?");
+						if(ret == true) {
+						    document.getElementById("LOGOUT").name = "LOGOUT";
+							document.getElementById("logControlForm").submit();
+						}
+                    }
+
+                    ]]>
                 </script>
             </head>
-            <body>
+            <body onload="startTimer();">
                 <div id="container">
                 <div id="header">
                     <div style="display:inline-block; fload:left;">
                         <p style="display:inline-block; margin-left:10px; margin-right:0px;">
-                            <a style="position:relative; top:8px;" href="#" id="linkHome" onclick="PostFunction('home');return false;">
+                            <a style="position:relative; top:8px;" href="#" id="linkHome" onclick="LinkTo('home');return false;">
                                 <img src="pic/webframe.png" alt="WebFrame" height="25" width="auto" />
                             </a>
                         </p>
-                        <p style="display:inline-block;color:gray;font-size:14">[<xsl:value-of select="$page"/>]</p>
+                        <p style="display:inline-block;color:gray;font-size:14">
+                            [<xsl:value-of select="$page"/> <span id="timeLeft"></span>]
+                        </p>
                     </div>
                     <xsl:apply-templates select="/website/menu"/>
                 </div>
@@ -38,9 +71,11 @@
                     <form id="linkToForm" action="#" method="POST">
                         <input type="hidden" id="page" name="page" value="X"/>
                     </form>
+                    <input type="hidden" id="isLogin" name="isLogin" value="{$islogin}"/>
+                    <input type="hidden" id="downTimerSec" name="downTimerSec" value="{$timeLeft}"/>
                 </div>
                 <div id="footer">
-                    <p class="footer" title="December 2017">WebFrame ver 2.1 Copyright &#169; R. Berlinski 2017-2018. All rights reserved.&#160;We use cookies.&#160;
+                    <p class="footer">WebFrame ver 3.0 Copyright &#169; 2017-2018. All rights reserved.&#160;We use cookies.&#160;
                         |&#160;<a href="#" class="footer" id="linkCredits" onclick="LinkTo('credits');return false;">Credits</a>&#160;|
                     </p>
                 </div>
@@ -51,17 +86,28 @@
     <!-- Menu -->
     <xsl:template match="/website/menu">
         <div style="display:inline-block; float:right; margin-right:3em;">
-			<div style="display:inline-block;">
-				<form action="#" method="POST">
-					<button class="logoff" type="submit" name="LOGOFF" title="Log off">
-						<img src="pic/user.png" alt="User" height="20" width="auto" />
-						<p style="color:gray;font-size:12px;margin-top:0px;" id="UserName"><xsl:value-of select="$user"/></p>
-					</button>
-				</form>
-			</div>
             <p class="header">
                 <xsl:apply-templates select="/website/menu/item" />
             </p>
+            <div style="display:inline-block;vertical-align:top;">
+                <form action="#" id="logControlForm" method="POST" style="margin-bottom: 0px;">
+                    <xsl:choose>
+                        <xsl:when test="$islogin='Y'"> <!-- logout -->
+                            <button class="log" type="submit" name="LOGOUT" value="{$page}" onclick="onLogout('{$user}');return false;">
+                                <img src="pic/user-in.png" alt="User" height="20" width="auto" style="margin:2px;"/><br/>
+                                <span style="color:#3d3935;font-size:12px;margin:2px;" id="UserName"><xsl:value-of select="$user"/></span>
+                            </button>
+                            <input type="hidden" id="LOGOUT" name="" value="{$page}"/>
+                        </xsl:when>
+                        <xsl:otherwise> <!-- log in -->
+                            <button class="log" type="submit" name="LOGIN" value="{$page}" >
+                                <img src="pic/user-out.png" alt="User" height="20" width="auto" style="margin:2px;"/><br/>
+                                <span style="color:gray;font-size:12px;margin:2px;" id="UserName"><xsl:value-of select="$user"/></span>
+                            </button>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </form>
+            </div>
         </div>
     </xsl:template>
     <!-- Menu item(s) -->

@@ -5,15 +5,11 @@ include "include/BasePage.php";
 class LoginPage extends BasePage {
 
 private $xmlLoging = <<<XML
-<data status="LOGIN" legend="Login"></data>
+<data status="LOGIN" legend="Login">Please enter:</data>
 XML;
 
 private $xmlLogingError = <<<XML
-<data status="ERROR" legend="Login"></data>
-XML;
-
-private $xmlLogingSuccess = <<<XML
-<data status="SUCCESS" legend="Login">_NAME_</data>
+<data status="ERROR" legend="Login">Something went wrong, please try again:</data>
 XML;
 
     public function getContent() {
@@ -23,16 +19,13 @@ XML;
         if(!$this->validateUser($_POST['user'], $_POST['password'])) {
             return parent::processXML([], $this->xmlLogingError);
         }
-        $xml = str_replace('_NAME_', $_POST['user'], $this->xmlLogingSuccess);
-        echo "<script> document.getElementById('UserName').innerHTML = '". $_POST['user']. "';</script>";
         $_SESSION['user'] = $_POST['user'];
-        return parent::processXML([], $xml);
+        header("Location: #");
     }
 
     private function validateUser($user, $password) {
         return (strlen($user) > 2) and (strlen($password) > 2);
     }
-
 
 }
 
